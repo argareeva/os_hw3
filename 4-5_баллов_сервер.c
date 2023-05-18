@@ -50,7 +50,7 @@ void handle_client(int client_socket) {
                 send(client_socket, response, sizeof(response), 0);
             } else if (strcmp(buffer, "Запрос на выход из галереи") == 0) {
                 // Запрос на выход из галереи
-                char response[] = "Выход из галереи.";
+                char response[] = "Выход из галереи";
                 send(client_socket, response, sizeof(response), 0);
                 break;
             }
@@ -107,7 +107,6 @@ int main(int argc, char *argv[]) {
             perror("Ошибка при принятии подключения");
             exit(1);
         }
-
         printf("Новое подключение принято\n");
 
         if (active_clients >= MAX_CLIENTS) {
