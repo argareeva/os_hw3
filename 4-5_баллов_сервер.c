@@ -40,6 +40,7 @@ void handle_client(int client_socket) {
                     // Количество посетителей превышает лимит
                     char response[] = "Количество посетителей превышает лимит";
                     send(client_socket, response, sizeof(response), 0);
+                    printf("Количество посетителей превышает лимит");
                     continue;
                 }
                 // Увеличение счетчика посетителей
@@ -47,11 +48,13 @@ void handle_client(int client_socket) {
                 // Отправка информации о количестве посетителей
                 char response[256];
                 sprintf(response, "Картинка %d: %d посетителей", pictures[random_picture].picture_id, pictures[random_picture].visitors_count);
+                printf("Отправка данных клиенту: Картинка %d: %d посетителей", pictures[random_picture].picture_id, pictures[random_picture].visitors_count);
                 send(client_socket, response, sizeof(response), 0);
             } else if (strcmp(buffer, "Запрос на выход из галереи") == 0) {
                 // Запрос на выход из галереи
                 char response[] = "Выход из галереи";
                 send(client_socket, response, sizeof(response), 0);
+                printf("Выход из галереи");
                 break;
             }
         }
