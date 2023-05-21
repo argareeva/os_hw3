@@ -29,14 +29,19 @@ void *handle_client(void *client_ptr) {
             // Обработка ответа от сервера
             if (strncmp(response, "Количество посетителей превышает лимит", strlen("Количество посетителей превышает лимит")) == 0) {
                 // Количество посетителей превышает лимит, ожидание
+                printf("Получен ответ от сервера: %s\n", response);
                 sleep(1);
                 continue;
             } else if (strncmp(response, "Выход из галереи", strlen("Выход из галереи")) == 0) {
                 // Выход из галереи
+                printf("Получен ответ от сервера: %s\n", response);
                 break;
             }
         }
     }
+    
+    char exit_request[] = "Запрос на выход из галереи";
+    send(client_socket, exit_request, sizeof(exit_request), 0);
 
     // Закрытие соединения с сервером
     close(client_socket);
