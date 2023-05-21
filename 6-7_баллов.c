@@ -7,9 +7,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-void display_information(const char *info) {
+void display_information(const char *info, const char *answ) {
     // Отображение информации о процессе обмена
-    printf("%s\n", info);
+    printf("%s%s\n", info, ans);
 }
 
 int main(int argc, char *argv[]) {
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
         int bytes_received = recv(client_socket, request, sizeof(request), 0);
         if (bytes_received > 0) {
             request[bytes_received] = '\0';
-            printf("Получен запрос от клиента: %s\n", request);
+            printf("Получен запрос от клиента\n");
             // Перенаправление запроса к серверу
             send(client_socket, request, sizeof(request), 0);
             // Получение ответа от сервера
@@ -55,14 +55,12 @@ int main(int argc, char *argv[]) {
             bytes_received = recv(client_socket, response, sizeof(response), 0);
             if (bytes_received > 0) {
                 response[bytes_received] = '\0';
-                printf("Получен ответ от сервера: %s\n", response);
+                printf("Получен ответ от сервера\n");
                 // Перенаправление ответа к клиенту
                 send(client_socket, response, sizeof(response), 0);
                 // Отображение информации о процессе обмена
-                display_information("Запрос от клиента: ");
-                display_information(request);
-                display_information("Ответ от сервера: ");
-                display_information(response);
+                display_information("Запрос от клиента: ", request);
+                display_information("Ответ от сервера: ", response);
             }
         }
     }
