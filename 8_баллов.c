@@ -9,9 +9,9 @@
 #include <pthread.h>
 #define MAX_CLIENTS 10
 
-void display_information(const char *info) {
+void display_information(const char *info, const char *answ) {
     // Отображение информации о процессе обмена
-    printf("%s\n", info);
+    printf("%s%s\n", info, ans);
 }
 
 void *handle_client(void *client_socket_ptr) {
@@ -33,10 +33,8 @@ void *handle_client(void *client_socket_ptr) {
             // Перенаправление ответа к клиенту
             send(client_socket, response, bytes_received, 0);
             // Отображение информации о процессе обмена
-            display_information("Запрос от клиента: ");
-            display_information(request);
-            display_information("Ответ от сервера: ");
-            display_information(response);
+            display_information("Запрос от клиента: ", request);
+            display_information("Ответ от сервера: ", response);
         }
     }
 
@@ -84,7 +82,7 @@ int main(int argc, char *argv[]) {
     while (1) {
         // Принятие входящего соединения
         struct sockaddr_in client_address;
-        int client_socket = accept(server_socket, (struct sockaddr *)&client_address, &sizeof(client_address));
+        int client_socket = accept(server_socket, (struct sockaddr *)&client_address, sizeof(client_address));
         if (client_socket == -1) {
             perror("Ошибка при принятии подключения");
             continue;
